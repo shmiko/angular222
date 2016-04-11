@@ -22,10 +22,7 @@ export class ProductListComponent implements OnInit{
 	listFilter: string;// = 'cart';
 	products: IProduct[];
 	//add methods after properties
-	// private _productService;
-	constructor(private _productService: ProductService) {
-		// _productService = productService;
-	}
+	constructor(private _productService: ProductService) {}
 
 	toggleImage(): void{
 		this.showImage = !this.showImage;

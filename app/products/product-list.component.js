@@ -29,7 +29,6 @@ System.register(['angular2/core', './product-filter.pipe', '../shared/star.compo
         execute: function() {
             ProductListComponent = (function () {
                 //add methods after properties
-                // private _productService;
                 function ProductListComponent(_productService) {
                     this._productService = _productService;
                     this.pageTitle = 'Item List';
@@ -37,7 +36,6 @@ System.register(['angular2/core', './product-filter.pipe', '../shared/star.compo
                     this.imageHeight = 25;
                     this.imageMargin = 2;
                     this.showImage = true;
-                    // _productService = productService;
                 }
                 ProductListComponent.prototype.toggleImage = function () {
                     this.showImage = !this.showImage;
