@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<div class='table-responsive'>
-			<table class='table' *ngIf='items && items.length'>
+			<table class='table' *ngIf='products && products.length'>
 				<thead>
 					<tr>
 						<th>
@@ -33,16 +33,20 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor='#item of items'>
-						<td><img *ngIf='showImage' [src]='item.imageUrl' [title]='item.productName'
+					<tr *ngFor='#product of products | productFilter:listFilter'>
+						<td><img *ngIf='showImage' [src]='product.imageUrl' [title]='product.productName'
 						[style.width.px]='imageWidth' [style.height.px]='imageHeight' [style.margin.px]='imageMargin'> 
 
 						</td>
-						<td>{{item.productName}}</td>
-						<td>{{item.productCode | lowercase}}</td>
-						<td>{{item.releaseDate}}</td>
-						<td>{{item.price | currency: 'AUD':true:'1.2-2'}}</td>
-						<td>{{item.starRating}}</td>
+						<td>{{product.productName}}</td>
+						<td>{{product.productCode | lowercase}}</td>
+						<td>{{product.releaseDate}}</td>
+						<td>{{product.price | currency: 'AUD':true:'1.2-2'}}</td>
+						<!-- <td>{{product.starRating}}</td> -->
+						<td>
+							<ai-star [rating]='product.starRating'
+								(ratingClicked)='onRatingClicked($event)'></ai-star>
+						</td>
 					</tr>
 				</tbody>
 			</table>
