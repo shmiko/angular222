@@ -1,4 +1,4 @@
-System.register(['angular2/core', './product-filter.pipe', '../shared/star.component', './product.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './product-filter.pipe', '../shared/star.component', './product.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,12 +10,15 @@ System.register(['angular2/core', './product-filter.pipe', '../shared/star.compo
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, product_filter_pipe_1, star_component_1, product_service_1;
+    var core_1, router_1, product_filter_pipe_1, star_component_1, product_service_1;
     var ProductListComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             },
             function (product_filter_pipe_1_1) {
                 product_filter_pipe_1 = product_filter_pipe_1_1;
@@ -28,14 +31,14 @@ System.register(['angular2/core', './product-filter.pipe', '../shared/star.compo
             }],
         execute: function() {
             ProductListComponent = (function () {
-                //add methods after properties
                 function ProductListComponent(_productService) {
                     this._productService = _productService;
-                    this.pageTitle = 'Item List';
+                    this.pageTitle = 'Discography';
                     this.imageWidth = 50;
-                    this.imageHeight = 25;
+                    this.imageHeight = 35;
                     this.imageMargin = 2;
                     this.showImage = true;
+                    this.listFilter = "";
                 }
                 ProductListComponent.prototype.toggleImage = function () {
                     this.showImage = !this.showImage;
@@ -43,19 +46,17 @@ System.register(['angular2/core', './product-filter.pipe', '../shared/star.compo
                 ProductListComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._productService.getProducts()
-                        .subscribe(function (products) { return _this.products = products; });
-                    (function (error) { return _this.errorMessage = error; });
+                        .subscribe(function (products) { return _this.products = products; }, function (error) { return _this.errorMessage = error; });
                 };
                 ProductListComponent.prototype.onRatingClicked = function (message) {
-                    this.pageTitle = 'Product List: ' + message;
+                    this.pageTitle = 'Music List: ' + message;
                 };
                 ProductListComponent = __decorate([
                     core_1.Component({
-                        selector: 'pm-products',
                         templateUrl: 'app/products/product-list.component.html',
                         styleUrls: ['app/products/product-list.component.css'],
                         pipes: [product_filter_pipe_1.ProductFilterPipe],
-                        directives: [star_component_1.StarComponent]
+                        directives: [star_component_1.StarComponent, router_1.ROUTER_DIRECTIVES]
                     }), 
                     __metadata('design:paramtypes', [product_service_1.ProductService])
                 ], ProductListComponent);

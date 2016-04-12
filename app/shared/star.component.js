@@ -18,13 +18,14 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            //decorator
             StarComponent = (function () {
                 function StarComponent() {
                     this.ratingClicked = new core_1.EventEmitter();
                 }
                 StarComponent.prototype.ngOnChanges = function () {
-                    this.starWidth = this.rating * 86 / 5; //based on width of star in px
+                    // Convert x out of 5 starts
+                    // to y out of 86px width
+                    this.starWidth = this.rating * 86 / 5;
                 };
                 StarComponent.prototype.onClick = function () {
                     this.ratingClicked.emit("The rating " + this.rating + " was clicked!");

@@ -1,55 +1,73 @@
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<h2>{{pageTitle}}</h2>
-	</div>
-	<div class="panel-body">
-		<div class="row">
-			<div class="col-md-2">Filter By:</div>
-			<div class="col-md-4">
-				<input type="text"
-				[(ngModel)]='listFilter'/>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6">
-				<h3>Filtered By: {{listFilter}}</h3>
-			</div>
-		</div>
-		<div class='table-responsive'>
-			<table class='table' *ngIf='products && products.length'>
-				<thead>
-					<tr>
-						<th>
-							<button class="btn btn-primary" 
-								(click)='toggleImage()'>
-								{{ showImage ? 'Hide' : 'Show'}} Image
-							</button>
-						</th>
-						<th>Item </th>
-						<th>Code </th>
-						<th>Available </th>
-						<th>Price </th>
-						<th>5 Star Rating </th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr *ngFor='#product of products | productFilter:listFilter'>
-						<td><img *ngIf='showImage' [src]='product.imageUrl' [title]='product.productName'
-						[style.width.px]='imageWidth' [style.height.px]='imageHeight' [style.margin.px]='imageMargin'> 
+<div class='panel panel-warning'>
+    <div class='panel-heading'>
+        {{pageTitle}}
+    </div>
 
-						</td>
-						<td>{{product.productName}}</td>
-						<td>{{product.productCode | lowercase}}</td>
-						<td>{{product.releaseDate}}</td>
-						<td>{{product.price | currency: 'AUD':true:'1.2-2'}}</td>
-						<!-- <td>{{product.starRating}}</td> -->
-						<td>
-							<ai-star [rating]='product.starRating'
-								(ratingClicked)='onRatingClicked($event)'></ai-star>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+    <!-- Filter the Products   -->
+    <div class='panel-body'>
+        <div class='row'>
+            <div class='col-md-2'>Filter by:</div>
+            <div class='col-md-4'>
+                <input type='text' [(ngModel)]='listFilter' />
+            </div>
+        </div>
+        <div class='row' *ngIf='listFilter'>
+            <div class='col-md-6'>
+                <h3>Filtered by: {{listFilter}} </h3>
+            </div>
+        </div>
+
+        <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+        <div class='table-responsive'>
+            <table class='table' *ngIf='products && products.length'>
+                <thead>
+                    <tr>
+                        <th>
+                            <button class='btn btn-warning' (click)='toggleImage()'>
+                                {{showImage ? 'Hide' : 'Show'}} Image
+                            </button>
+                        </th>
+                        <th>Title</th>
+                        <!-- <th>Description</th> -->
+                        <th>CatNo</th>
+                        <th>Label</th>
+                        <th>Date</th>
+                        <th>Genre</th>
+                        <!-- <th>Style</th> -->
+                        <th>Price</th>
+                        <th>5 Star Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='#product of products | productFilter:listFilter'>
+                        <td>
+                            <img *ngIf='showImage'
+                                 [src]='product.imageUrl'
+                                 [title]='product.title | uppercase'
+                                 [style.width.px]='imageWidth' 
+                                 [style.height.px]='imageHeight'
+                                 [style.margin.px]='imageMargin'>
+                        </td>
+                        <td> <a [routerLink]="['ProductDetail',{id: product.itemId}]">
+                            {{product.title}}
+                            </a>
+                        </td>
+                        <!-- <td>{{ product.description }}</td> -->
+                        <td>{{ product.catNo | lowercase }}</td>
+                        <td>{{ product.label }}</td>
+                        <td>{{ product.releaseDate }}</td>
+                        <td>{{ product.genre}}</td>
+                        <!-- <td>{{ product.style}}</td> -->
+                        <td>{{ product.price | currency:'USD':true:'1.2-2' }}</td>
+                        <td>
+                            <ai-star [rating]='product.starRating'
+                                    (ratingClicked)='onRatingClicked($event)'>
+                            </ai-star>
+                       </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
